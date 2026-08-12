@@ -1,0 +1,47 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+class Student {
+private:
+    int id;
+    char name[50];
+    float marks;
+
+public:
+    void input() {
+        cout << "\nEnter ID: ";
+        cin >> id;
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter Marks: ";
+        cin >> marks;
+    }
+
+    void display() {
+        cout << "\nID: " << id;
+        cout << "\nName: " << name;
+        cout << "\nMarks: " << marks << endl;
+    }
+
+    int getId() {
+        return id;
+    }
+};
+
+// Function to add student
+void addStudent() {
+    Student s;
+    ofstream file("student.dat", ios::binary | ios::app);
+
+    s.input();
+    file.write((char*)&s, sizeof(s));
+
+    file.close();
+    cout << "\nStudent Added Successfully!\n";
+}
+
+// Function to display all students
+void displayAll() {
+    Student s;
+    ifstream file("student.dat", ios::binary);
